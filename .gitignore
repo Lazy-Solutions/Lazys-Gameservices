@@ -1,0 +1,23 @@
+# Ignore all node_modules directories in subfolder projects
+/*/node_modules/
+
+# IDE files
+.vscode/
+.idea/
+
+# Dependencies lock files
+package-lock.json
+yarn.lock
+
+# Editor-specific files
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+
+# Test reports
+coverage/
+
+# Miscellaneous
+.DS_Store

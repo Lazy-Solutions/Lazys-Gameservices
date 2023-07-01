@@ -1,5 +1,5 @@
 # Ignore all node_modules directories in subfolder projects
-/*/node_modules/
+**/node_modules
 
 # IDE files
 .vscode/

@@ -1,5 +1,5 @@
 import Api from './api.js';
-import { validateFields } from './Shared/utils/ValidateUtils.js';
+import { validateFields } from '@lazy/shared/utils/ValidateUtils.js';
 import Config from './models/Config.js';
 import ConfigManager from './services/ConfigManager.js';
 import Matchmaking from './services/Matchmaking.js';

@@ -1,5 +1,5 @@
-import CustomError from "../Shared/common/CustomError.js";
-import ErrorCode from "../Shared/common/ErrorCodes.js";
+import CustomError from "@lazy/shared/common/CustomError.js";
+import ErrorCode from "@lazy/shared/common/ErrorCodes.js";
 import MatchManager from "../services/MatchManager.js";
 
 export async function getMatch(req, res) {

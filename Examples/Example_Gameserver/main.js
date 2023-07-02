@@ -1,4 +1,4 @@
-import GameServerCore from "gameserver_core";
+import GameServerCore from "@lazy/gameserver_core";
 import { v4 as uuidv4 } from 'uuid';
 
 // Maintain a set to store generated GUIDs

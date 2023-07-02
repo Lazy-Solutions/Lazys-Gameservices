@@ -4,13 +4,13 @@
     "description": "",
     "main": "main.js",
     "type": "module",
+    "author": "lazy.solutions",
     "scripts": {
         "start": "node main.js",
         "dev": "node main.js",
         "postinstall": "npm link ../../GameserverCore",
-        "comment": "----->post install will create a symlink to the project, this can be changed.<-----"
+        "comment": "----->post install will create a symlink to the project, this can be changed by changing 'link' to 'install'.<-----"
     },
-    "author": "",
     "dependencies": {
         "dotenv": "^16.0.3",
         "express": "^4.18.2",

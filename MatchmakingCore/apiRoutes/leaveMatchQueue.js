@@ -1,9 +1,9 @@
-import { validateFields } from '../Shared/utils/ValidateUtils.js';
+import { validateFields } from '@lazy/shared/utils/ValidateUtils.js';
 import PlayerQueue from '../services/PlayerQueue.js';
 import MatchManager from '../services/MatchManager.js';
-import EventResponse from '../Shared/common/EventResponse.js';
-import SuccessCode from '../Shared/common/SuccessCodes.js';
-import CustomError from '../Shared/common/CustomError.js';
+import EventResponse from '@lazy/shared/common/EventResponse.js';
+import SuccessCode from '@lazy/shared/common/SuccessCodes.js';
+import CustomError from '@lazy/shared/common/CustomError.js';
 
 export async function leaveMatchQueue(req, res) {
     try {

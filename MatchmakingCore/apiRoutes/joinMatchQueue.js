@@ -1,10 +1,10 @@
-import { validateFields } from '../Shared/utils/ValidateUtils.js';
+import { validateFields } from '@lazy/shared/utils/ValidateUtils.js';
 import PlayerQueue from '../services/PlayerQueue.js';
 import MatchManager from '../services/MatchManager.js';
 import ConfigManager from '../services/ConfigManager.js';
-import SuccessCode from '../../Shared/common/SuccessCodes.js';
-import EventResponse from '../../Shared/common/EventResponse.js';
-import CustomError from '../../Shared/common/CustomError.js';
+import SuccessCode from '@lazy/shared/common/SuccessCodes.js';
+import EventResponse from '@lazy/shared/common/EventResponse.js';
+import CustomError from '@lazy/shared/common/CustomError.js';
 
 
 export async function joinMatchQueue(req, res) {   

@@ -1,8 +1,8 @@
 {
-  "name": "Shared",
+  "name": "@lazy/shared",
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "author": "",
+  "author": "lazy.solutions",
   "license": "ISC"
 }

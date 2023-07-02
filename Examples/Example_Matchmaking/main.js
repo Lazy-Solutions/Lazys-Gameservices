@@ -1,7 +1,7 @@
-import Config from 'Matchmaking_core/models/Config.js';
-import Player from 'Matchmaking_core/models/Player.js';
-import MatchmakingCore from 'Matchmaking_core/core.js';
-import { utils } from 'Matchmaking_core/common.js';
+import Config from '@lazy/matchmaking_core/models/Config.js';
+import Player from '@lazy/matchmaking_core/models/Player.js';
+import MatchmakingCore from '@lazy/matchmaking_core/core.js';
+import { utils } from '@lazy/matchmaking_core/common.js';
 
 const { validateFields } = utils;
 

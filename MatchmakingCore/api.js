@@ -3,8 +3,8 @@ import compression from 'compression';
 import ConfigManager from './services/ConfigManager.js';
 import Authentication from './services/Authentication.js';
 import { joinMatchQueue, leaveMatchQueue, createPrivateGame, getMatch } from './apiRoutes/ApiRoutes.js';
-import CustomError from './Shared/common/CustomError.js';
-import ErrorCode from './Shared/common/ErrorCodes.js';
+import CustomError from '@lazy/shared/common/CustomError.js';
+import ErrorCode from '@lazy/shared/common/ErrorCodes.js';
 
 function Api() {
     const { port, authentication } = ConfigManager.get();

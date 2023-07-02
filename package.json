@@ -4,6 +4,6 @@
     "description": "installer package.json",
     "author": "lazy.solutions",
     "scripts": {
-        "install": "cd GameserverCore && npm install && cd ../MatchmakingCore && npm install && cd ../Examples/Example_Gameserver && npm install && cd ../../Examples/Example_Matchmaking && npm install"
+        "install": "cd GameserverCore && npm install && cd ../MatchmakingCore && npm install && cd ../Examples && cd Example_Gameserver && npm install && cd ../Example_Matchmaking && npm install"
     }
 }

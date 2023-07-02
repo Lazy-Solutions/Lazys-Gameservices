@@ -1,0 +1,9 @@
+{
+    "name": "lazys_gameservices",
+    "version": "1.0.0",
+    "description": "installer package.json",
+    "author": "lazy.solutions",
+    "scripts": {
+        "install": "cd GameserverCore && npm install && cd ../MatchmakingCore && npm install && cd ../Examples/Example_Gameserver && npm install && cd ../../Examples/Example_Matchmaking && npm install"
+    }
+}

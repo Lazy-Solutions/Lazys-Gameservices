@@ -6,8 +6,9 @@
 .idea/
 
 # Dependencies lock files
+**/package-lock.json
 package-lock.json
-yarn.lock
+**/yarn.lock
 
 # Editor-specific files
 *.swp

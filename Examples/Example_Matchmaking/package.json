@@ -1,5 +1,5 @@
 {
-    "name": "server",
+    "name": "ex_mm",
     "version": "1.0.0",
     "description": "",
     "main": "main.js",
@@ -7,14 +7,12 @@
     "author": "lazy.solutions",
     "scripts": {
         "start": "node main.js",
-        "dev": "node --watch main.js",
-        "postinstall": "npm link ../../MatchmakingCore",
-        "comment": "----->post install will create a symlink to the project, this can be changed.<-----"
+        "dev": "node --inspect=0.0.0.0 main.js"
     },
     "dependencies": {
-        "dotenv": "^16.0.3"
-    },
-    "runtimeArgs": [
-        "--preserve-symlinks"
-    ]
+        "dotenv": "^16.0.3",
+        "jsonwebtoken": "^9.0.0",
+        "@aws-sdk/client-s3": "^3.370.0",
+        "aws-sdk": "^2.1415.0"
+    }
 }

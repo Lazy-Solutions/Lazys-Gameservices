@@ -1,9 +1,17 @@
 {
-    "name": "@lazy/gameservices",
+    "name": "gameservices",
     "version": "1.0.0",
-    "description": "installer package.json",
+    "description": "Builder script",
     "author": "lazy.solutions",
+    "type": "module",
     "scripts": {
-        "install": "cd GameserverCore && npm install && cd ../MatchmakingCore && npm install && cd ../Examples && cd Example_Gameserver && npm install && cd ../Example_Matchmaking && npm install"
+        "install-cores": "cd Cores/MatchmakingCore && npm install && cd .. && cd .. && cd Cores/GameserverCore && npm install",
+        "build": "set APP=Gameserver && rollup -c && set APP=Matchmaking && rollup -c",
+        "docs": "jsdoc -c jsdoc.json --debug" 
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^25.0.2",
+        "@rollup/plugin-json": "^6.0.0",
+        "@rollup/plugin-node-resolve": "^15.1.0"
     }
 }

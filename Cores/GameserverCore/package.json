@@ -1,0 +1,16 @@
+{
+    "name": "@lazy/gameservercore",
+    "version": "1.0.0",
+    "description": "",
+    "main": "core.js",
+    "type": "module",
+    "author": "lazy.solutions",
+    "dependencies": {
+        "@lazy/shared": "file:../shared",
+        "compression": "^1.7.4",
+        "express": "^4.18.2",
+        "shared": "file:../shared",
+        "uuid": "^9.0.0",
+        "ws": "^8.12.1"
+    }
+}

@@ -1,0 +1,120 @@
+version: '3'
+services:
+  data-init:
+    build:
+      context: .
+      dockerfile: Dockerfile-init
+    volumes:
+      - game-data-volume:/app/data
+
+
+  matchmaking:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP=Matchmaking
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: production
+    ports:
+      - 8080:8080
+    entrypoint:
+      - /sbin/tini
+      - --
+    command: ["node", "main.js"]
+
+  gameserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      #target: build
+      args:
+        - APP=Gameserver
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: production
+    ports:
+      - "${API_PORT}:8080" # Expose API port
+      - "${WS_PORT}:9000" # Expose WebSocket port
+    entrypoint:
+      - /sbin/tini
+      - --
+    command: ["node", "main.js"]
+
+  gameserver-debug:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP=Gameserver
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: development
+    networks:
+      debug-network:
+        ipv4_address: 172.16.0.3 # Set the desired IP address
+    ports:
+      - "7777:8080" # Expose API port
+      - "9000:9000" # Expose WebSocket port
+      -  9228:9229 # Debug port
+    entrypoint:
+      - /sbin/tini
+      - --
+    command: ["node", "--inspect=0.0.0.0", "main.js"]
+
+  gameserver-debug-dup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP=Gameserver
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: development
+    networks:
+      debug-network:
+        ipv4_address: 172.16.0.4 # Set the desired IP address
+    ports:
+      - "7776:8080" # Expose API port
+      - "9001:9000" # Expose WebSocket port
+      -  9227:9229 # Debug port
+    entrypoint:
+      - /sbin/tini
+      - --    
+    command: ["node", "--inspect=0.0.0.0", "main.js"]
+
+  matchmaking-debug:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP=Matchmaking
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: development
+    networks:
+      debug-network:
+        ipv4_address: 172.16.0.2 # Set the desired IP address
+    ports:
+      - 8080:8080
+      - 9229:9229 # Debug port
+    entrypoint:
+      - /sbin/tini
+      - --
+    command: ["node", "--inspect=0.0.0.0", "main.js"]
+
+networks:
+  debug-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24 # Define the subnet for the debug network
+
+volumes:
+  game-data-volume:

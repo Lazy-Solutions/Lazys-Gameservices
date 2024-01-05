@@ -6,23 +6,17 @@ This project is a matchmaking service built with JavaScript and Node.js. It prov
 
 - JavaScript and Node.js: The code is implemented using JavaScript and runs on Node.js.
 
-- No Classes: Classes are not used in the code implementation.
-
 - JSDoc Comments: The code is commented using JSDoc syntax to provide documentation for functions and objects.
-
-- Naming Conventions: Objects with multiple functions follow uppercase naming convention, while functions with a single job use camelCase naming convention.
 
 - ES6 Modules: The code uses ES6 module syntax for importing and exporting modules.
 
 ## Project Structure
 
-The project consists of multiple modules:
+The project consists of 2 examples to build from:
 
-1. GameServerCore: [Description of GameServerCore]
+1. Gameserver:
 
-2. MatchMakingCore: [Description of MatchMakingCore]
-
-3. Shared: [Description of Shared]
+2. Matchmaking:
 
 ## License
 

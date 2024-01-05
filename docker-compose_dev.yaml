@@ -9,16 +9,18 @@ services:
     volumes:
       - game-data-volume:/app/data
     environment:
-      NODE_ENV: production
-      EXT_IP: ${IP}
-      EXT_PORT: ${PORT}
+      NODE_ENV: development
+      EXT_IP: 172.16.0.2
+      EXT_PORT: 8080
     ports:
-      - ${PORT}:8080
+      - 8080:8080
     entrypoint:
       - /sbin/tini
       - --
     command: ["node", "matchmaking.js"]
-    
+    networks:
+      network:
+        ipv4_address: 172.16.0.2
 
   gameserver:
     build:
@@ -29,15 +31,18 @@ services:
     volumes:
       - game-data-volume:/app/data
     environment:
-      NODE_ENV: production
-      EXT_IP: ${IP}
-      EXT_PORT: ${PORT}
+      NODE_ENV: development
+      EXT_IP: 172.16.0.3
+      EXT_PORT: 7777
     ports:
-      - "${PORT}:8080"
+      - "7777:8080"
     entrypoint:
       - /sbin/tini
       - --
     command: ["node", "gameserver.js"]
+    networks:
+      network:
+        ipv4_address: 172.16.0.3
 
 networks:
   network:

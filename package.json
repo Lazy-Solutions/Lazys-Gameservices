@@ -1,17 +1,25 @@
 {
-    "name": "gameservices",
+    "name": "lazy_game_services",
     "version": "1.0.0",
-    "description": "Builder script",
-    "author": "lazy.solutions",
+    "description": "",
     "type": "module",
+    "author": "lazy.solutions",
     "scripts": {
-        "install-cores": "cd Cores/MatchmakingCore && npm install && cd .. && cd .. && cd Cores/GameserverCore && npm install",
-        "build": "set APP=Gameserver && rollup -c && set APP=Matchmaking && rollup -c",
-        "docs": "jsdoc -c jsdoc.json --debug" 
+        "start": "node main.js",
+        "dev": "node --inspect=0.0.0.0 main.js"
     },
-    "devDependencies": {
-        "@rollup/plugin-commonjs": "^25.0.2",
-        "@rollup/plugin-json": "^6.0.0",
-        "@rollup/plugin-node-resolve": "^15.1.0"
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.370.0",
+        "aws-sdk": "^2.1415.0",
+        "axios": "^1.4.0",
+        "compression": "^1.7.4",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "express-msgpack": "^5.0.0",
+        "jsonwebtoken": "^9.0.0",
+        "msgpack-lite": "^0.1.26",
+        "uuid": "^9.0.0",
+        "ws": "^8.13.0"
     }
 }

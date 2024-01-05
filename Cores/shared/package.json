@@ -1,7 +1,0 @@
-{
-  "name": "@lazy/shared",
-  "version": "1.0.0",
-  "description": "Shared scripts for core",
-  "author": "lazy.solutions",
-  "type": "module"
-}

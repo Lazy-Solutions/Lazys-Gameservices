@@ -6,10 +6,9 @@ RUN apk add --no-cache tini
 
 WORKDIR /app
 # Copy package.json files from examples and core directories
-COPY Examples/Example_${APP}/package.json ./
+COPY package.json ./
 RUN npm install
 
+WORKDIR /app
 # Copy remaining files
-COPY Examples/Example_${APP} ./
-COPY Examples/utils/S3 ./S3
-COPY bin ./core
+COPY . ./

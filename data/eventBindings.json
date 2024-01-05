@@ -1,0 +1,7 @@
+{
+    "JOIN_QUEUE": 1,
+    "LEAVE_QUEUE": 2,
+    "MATCHED": 3,
+    "GET_PLAYER_DATA": 4,
+    "JOINED_GAME": 5
+}

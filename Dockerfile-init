@@ -1,5 +1,0 @@
-FROM busybox
-
-# Copy the certificate and key files to the appropriate location
-COPY certificates/* /app/data/
-

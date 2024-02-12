@@ -1,6 +1,8 @@
 import { common } from '../core/core.js';
 import eventBindings from '../data/eventBindings.json' assert { type: 'json' };
 import errorBindings from '../data/errorBindings.json' assert { type: 'json' };
+import gameModes from '../data/gameModes.json' assert { type: 'json' };
+
 
 const { getLocalIpAddress } = common;
 
@@ -20,4 +22,4 @@ export const config = {
 //TODO: is this the hostname we wanna use? perhaps take the AWS instance id+port
 config.HOSTNAME = `${config.IP}:${config.PORT}`;
 
-export { eventBindings, errorBindings };
+export { eventBindings, errorBindings, gameModes };

@@ -14,12 +14,15 @@ export async function onMessage(message, session)
 
         const eventHandler = eventHandlers[event];
 
+
         if (!eventHandler)
         {
             console.warn('Unhandled event:', event);
             throw new Error('Request failed');
         }
 
+        session.ActionTaken = true;
+        
         const eventHandledResult = await eventHandler(session, data);
         
         session.socket.send(JSON.stringify(eventHandledResult));

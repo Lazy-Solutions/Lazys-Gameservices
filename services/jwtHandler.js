@@ -1,6 +1,5 @@
-//@ts-ignore, will be loaded in docker
-
 import jwt from 'jsonwebtoken';
+//@ts-ignore, will be loaded in docker
 import dotenv from 'dotenv';
 dotenv.config();
 

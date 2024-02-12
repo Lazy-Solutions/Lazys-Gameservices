@@ -4,7 +4,7 @@ const { log, error, warn } = console;
 
 export class PlayerQueue
 {
-    constructor()
+    constructor ()
     {
         this.queue = {};
         this.customQueueKeyGenerator = null;
@@ -13,60 +13,60 @@ export class PlayerQueue
     enqueue(player)
     {
         const queueKey = this.generateQueueKey(player); // string
-        this._enqueue(player, queueKey);
+        this._enqueue(queueKey, player);
     }
 
-    enqueueWithKey(player, key)
+    enqueueWithKey(key, player)
     {
-        this._enqueue(player, key);
+        this._enqueue(key, player);
     }
 
     enqueuePlayers(players)
     {
-        for (const player of players)
+        for(const player of players)
         {
             this.enqueue(player);
         }
     }
 
-    enqueuePlayersWithKey(players, key)
+    enqueuePlayersWithKey(key, players)
     {
-        for (const player of players)
+        for(const player of players)
         {
-            this.enqueueWithKey(player, key);
+            this.enqueueWithKey(key, player);
         }
     }
 
-    _enqueue(player, queueKey)
+    _enqueue(queueKey, player)
     {
 
-        if (!this.queue[queueKey])
+        if(!this.queue[queueKey])
         {
             this.queue[queueKey] = [];
         }
 
         this.queue[queueKey].push(player);
 
-        if (isDev)
-            log(`Player id: ${player.id}, joined the queue.`);
+        if(isDev)
+            log(`Player id: ${ player.id }, joined the queue.`);
     }
 
     dequeue(playerId)
     {
-        for (const queueKey in this.queue)
+        for(const queueKey in this.queue)
         {
             const index = this.queue[queueKey].findIndex(p => p.id === playerId);
-            if (index !== -1)
+            if(index !== -1)
             {
                 this.queue[queueKey].splice(index, 1);
 
-                if (this.queue[queueKey].length === 0)
+                if(this.queue[queueKey].length === 0)
                 {
                     delete this.queue[queueKey];
                 }
 
-                if (isDev)
-                    log(`Player id: ${playerId}, left the queue.`);
+                if(isDev)
+                    log(`Player id: ${ playerId }, left the queue.`);
 
                 break;
             }
@@ -75,7 +75,7 @@ export class PlayerQueue
 
     dequeuePlayers(players)
     {
-        for (const player of players)
+        for(const player of players)
         {
             this.dequeue(player.id);
         }
@@ -83,7 +83,7 @@ export class PlayerQueue
 
     dequeueIds(ids)
     {
-        for (const id of ids)
+        for(const id of ids)
         {
             this.dequeue(id);
         }
@@ -106,7 +106,8 @@ export class PlayerQueue
 
     getQueueAt(index)
     {
-        if(index < 0 && index >= this.countQueues() ){
+        if(index < 0 && index >= this.countQueues())
+        {
             return undefined;
         }
 
@@ -118,7 +119,7 @@ export class PlayerQueue
     getAllPlayers()
     {
         const allPlayers = [];
-        for (const queueKey in this.queue)
+        for(const queueKey in this.queue)
         {
             allPlayers.push(...this.queue[queueKey]);
         }
@@ -140,7 +141,7 @@ export class PlayerQueue
     {
         const keys = Object.keys(this.queue);
 
-        if (index < 0 || index >= keys.length)
+        if(index < 0 || index >= keys.length)
         {
             return undefined;
         }
@@ -158,7 +159,7 @@ export class PlayerQueue
     {
         const keys = Object.keys(this.queue);
 
-        if (index >= 0 && index < keys.length)
+        if(index >= 0 && index < keys.length)
         {
             const keyToDelete = keys[index];
             delete this.queue[keyToDelete];
@@ -178,7 +179,7 @@ export class PlayerQueue
     countPlayers()
     {
         let totalCount = 0;
-        for (const queueKey in this.queue)
+        for(const queueKey in this.queue)
         {
             totalCount += this.queue[queueKey].length;
         }
@@ -210,6 +211,6 @@ export class PlayerQueue
 
     defaultGenerateQueueKey(player)
     {
-        return `${player.ranked ? "Ranked" : "Casual"}_${player.gameMode}`;
+        return `${ player.ranked ? "Ranked" : "Casual" }_${ player.gameMode }`;
     }
 }

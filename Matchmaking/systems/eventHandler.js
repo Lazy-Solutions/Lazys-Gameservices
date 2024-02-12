@@ -1,33 +1,18 @@
 import { eventBindings } from "../../shared/globals.js";
-import { playerQueue } from "../store.js";
+
+import { acceptChallenge } from "../events/acceptChallenge.js";
+import { cancelChallenge } from "../events/cancelChallenge.js";
+import { challenge } from "../events/challenge.js";
+import { getPlayerData } from "../events/getPlayerData.js";
+import { joinQueue } from "../events/joinQueue.js";
+import { leaveQueue } from "../events/leaveQueue.js";
 
 
 export const eventHandlers = {
-    [eventBindings.JOIN_QUEUE]: async (session, data) =>
-    {
-        const { gameMode, ranked } = data;
-        const user = session.user;
-
-        if(playerQueue.isQueued(user.id))
-        {
-            throw new Error('already queued');
-        }
-
-        playerQueue.enqueueWithKey(user, `${ ranked ? 'Ranked' : 'Casual' }_${ gameMode }`);
-
-        return { event: eventBindings.JOIN_QUEUE, data: 'Joined Queue' };
-    },
-    [eventBindings.LEAVE_QUEUE]: async (session, data) =>
-    {
-        if(!playerQueue.isQueued(session.user.id))
-            throw new Error('Not queued');
-
-        playerQueue.dequeue(session.user.id);
-        return { event: eventBindings.LEAVE_QUEUE, data: 'Left Queue' };
-    },
-    // Add more event handlers as needed
-    [eventBindings.GET_PLAYER_DATA]: async (session, data) => {
-        console.log("Player info requested")
-        return { event: eventBindings.GET_PLAYER_DATA, data: session.user } //TODO: might want to prune stuff?
-    },
+    [eventBindings.JOIN_QUEUE]: joinQueue,
+    [eventBindings.LEAVE_QUEUE]: leaveQueue,
+    [eventBindings.GET_PLAYER_DATA]: getPlayerData,
+    [eventBindings.CHALLANGE]: challenge,
+    [eventBindings.CANCEL_CHALLANGE]: cancelChallenge,
+    [eventBindings.ACCEPT_CHALLANGE]: acceptChallenge
 };

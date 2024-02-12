@@ -6,12 +6,13 @@ import { MatchStates } from './MatchStates.js';
 
 export class Match extends ExtendedMatch
 {
-    constructor(match_id, maxPlayers, _private = false)
+    constructor(match_id, maxPlayers, gameMode, _private = false)
     {
         super(match_id, _private);
 
         this.maxPlayers = maxPlayers;
         this.state = MatchStates.preMatch;
+        this.gameMode = gameMode;
     }
 
     // If the access is set as "player" add them, if not, make them spectators.

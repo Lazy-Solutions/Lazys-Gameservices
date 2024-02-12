@@ -2,6 +2,7 @@ import { parse } from 'url';
 import { authentication_GoogleId } from '../../services/authentication/googleId.js';
 import { connections, playerQueue } from '../store.js';
 import { getPlayerObject } from './getPlayerObject.js';
+import { challengeHandler } from '../systems/challengeHandler.js';
 
 
 export async function onConnection(session, req)
@@ -10,7 +11,6 @@ export async function onConnection(session, req)
 
     // Access the URL of the request
     const urlParams = parse(req.url, true).query;
-    console.log(urlParams);
 
     // Extract the token from the URL parameters
     const authToken = urlParams.auth;
@@ -39,13 +39,17 @@ export async function onConnection(session, req)
     // timeout to disconnect AFK connections
     session.timeout = setInterval(() =>
     {
-        if(playerQueue.isQueued(user.id))
+        if(session.ActionTaken){
+            session.ActionTaken = false;
+            return;
+        }
+
+        if(playerQueue.isQueued(user.id) || challengeHandler.isRegistered(user.id))
             return;
 
         session.socket.close(1000, 'Closing gracefully');
         clearInterval(session.timeout);
-    }, 10 * 60 * 100); // 10 min
-
+    }, 10 * 60 * 1000); // 10 min
 }
 
 

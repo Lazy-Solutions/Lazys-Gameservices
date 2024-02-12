@@ -45,6 +45,10 @@ export const Storage = {
 
         const player = await this._storage.getData(path);
 
+        //restore id.
+        if(player)
+            player.id = id;
+
         return player;
     },
 

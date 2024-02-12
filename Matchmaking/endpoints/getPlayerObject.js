@@ -4,6 +4,7 @@ import { Storage } from '../../shared/storage.js';
 export async function getPlayerObject(user)
 {
     let player = await Storage.getPlayer(user.id);
+
     let needsStorageUpdate = false;
     
     if(!player)
@@ -17,11 +18,12 @@ export async function getPlayerObject(user)
 
     const { hasUnwantedProperties, cleanedData } = Player.cleanAndCheckForUnwantedProperties(player);
 
+    
     if(hasUnwantedProperties)
     {
         // Update the player with cleaned data
         Object.assign(player, cleanedData);
-
+        
         // Flag that an update is needed
         needsStorageUpdate = true;
     }

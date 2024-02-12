@@ -98,7 +98,6 @@ export async function MOCKStorage({ bucket })
             else
             {
                 // Handle the case where the key is undefined
-                console.error(`Key "${ key }" is undefined`);
                 current = undefined;
                 break;
             }

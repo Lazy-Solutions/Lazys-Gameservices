@@ -16,14 +16,14 @@ const cachedServers = new CachedDataRetriever(cacheTTL, async () =>
 {
     const service = 'gameserver';
 
-    if (!Storage.hasServers(service))
+    if(!Storage.hasServers(service))
         throw new Error('Missing key.');
 
     return await Storage.getServers(service);
 });
 
 const headers = {
-    'Authorization': `Bearer ${ACCESS_KEY}`, // Modify this line to match your API key format
+    'Authorization': `Bearer ${ ACCESS_KEY }`, // Modify this line to match your API key format
     'Content-Type': 'application/json', // Adjust content type as needed
 };
 
@@ -37,27 +37,27 @@ async function eventCallback()
     // Simulate some asynchronous operation
     await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // get all matched player matches.
-    const matchCount = matchedPlayerQueue.length;
-
     // no matches, should we add a delay before we try find again?
-    if (!matchCount)
+    if(!matchedPlayerQueue.length)
         return;
 
     // retrieve all currently available servers, these are cached.
     const servers = await cachedServers.getData();
 
-    if (!servers)
+    if(!servers)
         return; // TODO: handle there being no servers
 
+    // @ts-ignore, this is dumb
+    const { gameMode, matchCount } = processQueue(matchedPlayerQueue);
+
     // we do one request per server, if they give us all or less we repeat the request next loop
-    const match = await requestMatches(servers, matchCount);
+    const results = await requestMatches(servers, matchCount, gameMode);
 
     // for each match id we get from server we add it to a ready made group.
     // the game server will handle if players dont connect, so we should expect the matches and ids to max.
 
-    const matchIds = match.matchIds;
-    const server = match.server;
+    const matchIds = results.matchIds;
+    const server = results.server;
 
     matchIds.forEach(matchId =>
     {
@@ -67,27 +67,27 @@ async function eventCallback()
         match.id = matchId;
         match.server = server;
         match.key = key;
-        
+
         match.sendServerInfo();
     });
 }
 
-async function requestMatches(servers, matchCount)
+async function requestMatches(servers, matchCount, gameMode)
 {
     const serverKeys = Object.keys(servers);
 
-    for (const server of serverKeys)
+    for(const server of serverKeys)
     {
         const { ip, port } = servers[server];
 
-        const address = isDev || areInSameNetwork(IP, ip) ? `127.0.0.1:${port}` : `${ip}:${port}`;
+        const address = isDev || areInSameNetwork(IP, ip) ? `127.0.0.1:${ port }` : `${ ip }:${ port }`;
 
-        const response = await axios.post(`https://${address}/creatematches`, { matchCount }, {
+        const response = await axios.post(`https://${ address }/creatematches`, { matchCount, gameMode }, {
             httpsAgent: agent,
             headers: headers,
         });
 
-        if (response.status !== 201)
+        if(response.status !== 201)
         {
             // Continue to the next server
             continue;
@@ -101,6 +101,19 @@ async function requestMatches(servers, matchCount)
     throw new Error("No servers available");
 }
 
+function processQueue(queue)
+{
+    if(queue.length === 0)
+    {
+        console.log("Queue is empty.");
+        return;
+    }
+
+    const gameMode = queue[0].gameMode;
+    const matchesForFirstGameMode = queue.filter(match => match.gameMode === gameMode);
+
+    return { gameMode: gameMode, matchCount: matchesForFirstGameMode.length };
+}
 
 
 // TODO: this should report to event manager

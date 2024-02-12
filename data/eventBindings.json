@@ -1,7 +1,12 @@
 {
-    "JOIN_QUEUE": 1,
-    "LEAVE_QUEUE": 2,
-    "MATCHED": 3,
-    "GET_PLAYER_DATA": 4,
-    "JOINED_GAME": 5
+    "GET_PLAYER_DATA": 1,
+    "JOIN_QUEUE": 11,
+    "LEAVE_QUEUE": 12,
+    "CHALLANGE": 21,
+    "CHALLANGED": 22,
+    "CHALLANGE_PENDING": 23,
+    "CANCEL_CHALLANGE": 24,
+    "ACCEPT_CHALLANGE": 25,
+    "GAME_FOUND": 31,
+    "JOINED_GAME": 32
 }

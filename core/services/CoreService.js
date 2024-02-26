@@ -5,7 +5,7 @@ import { WebSocketServer } from 'ws';
 
 export class CoreService
 {
-    constructor({ key, cert, middleware, endpoints })
+    constructor ({ key, cert, middleware, endpoints }, disableWebsocket = false)
     {
         this.app = express();
 
@@ -14,10 +14,12 @@ export class CoreService
         const credentials = { key: privateKey, cert: certificate };
 
         this.server = https.createServer(credentials, this.app);
-        this.wss = new WebSocketServer({
-            server: this.server,
-            rejectUnauthorized: false //TODO: fix, Accept self-signed certificates in development, 
-        });
+
+        if(!disableWebsocket)
+            this.wss = new WebSocketServer({
+                server: this.server,
+                rejectUnauthorized: false //TODO: fix, Accept self-signed certificates in development, 
+            });
 
         // Initialize routes, middleware, and WebSocket events
         this.init({ middleware, endpoints });
@@ -65,7 +67,7 @@ export class CoreService
     {
         this.server.listen(port, () =>
         {
-            console.log(`Server started on port ${port}`);
+            console.log(`Server started on port ${ port }`);
         });
     }
 

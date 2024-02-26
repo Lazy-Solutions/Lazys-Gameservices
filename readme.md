@@ -2,6 +2,10 @@
 
 This project is a matchmaking service built with JavaScript and Node.js. It provides functionality for matching players based on various criteria. The service follows the requirements listed below:
 
+#### Note on TypeScript. ####
+
+Simplicity is key. I enjoy the freedom of being able to run my code without the need for compilation steps. Plus, I wish to work closer to the core of JavaScript. It allows me to dive deeper into the language and learn more along the way.
+
 ## Project Requirements
 
 - JavaScript and Node.js: The code is implemented using JavaScript and runs on Node.js.
@@ -15,16 +19,15 @@ This project is a matchmaking service built with JavaScript and Node.js. It prov
 The project consists of 2 examples to build from:
 
 1. Gameserver:
+   Where one will implement your gamelogic, it's made to be multiple instances, for example, one per zone or to handle too many players on one server.
 
-2. Matchmaking:
+3. Matchmaking:
+   Made to be one of per game, or one of per region. which can queue players to multiple gameservers.
+
+5. Comming, ServiceMonitor.
+   A hub to collect errors and other information from the servers.
 
 ## License
-
-This project is licensed under the GNU General Public License (GPL) version 3.0. You can find the full text of the license in the LICENSE file.
-
-The GPL is a copyleft license that promotes the principles of free software. It grants users the freedom to use, modify, and distribute the software while ensuring that derivative works also remain open-source.
-
-Please refer to the individual module folders for more detailed documentation and instructions on how to use each module.
 
 ## Installation
 

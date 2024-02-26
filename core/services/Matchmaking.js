@@ -1,4 +1,3 @@
-import { Match } from "../models/Match.js";
 import AsyncLooper from "../utilities/AsyncLooper.js";
 
 export class Matchmaking extends AsyncLooper

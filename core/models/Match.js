@@ -1,3 +1,7 @@
+/**
+ * Base class for Match object, to be extended.
+ */
+
 export class Match
 {
     constructor(id, _private = false)

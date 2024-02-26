@@ -42,7 +42,7 @@ export class CoreService
         });
 
         // Define WebSocket events
-        this.wss.on('connection', async (socket, req) =>
+        this.wss?.on('connection', async (socket, req) =>
         {
             const session = { socket };
 

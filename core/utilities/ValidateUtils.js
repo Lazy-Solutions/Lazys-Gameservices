@@ -1,3 +1,9 @@
+/*
+ * I ended up not using these, keep? 
+ *
+ */
+
+
 export function validateFields(data, requiredPropertiesOrFields) {
     if (!requiredPropertiesOrFields || !data) {
         throw new Error(`Validation fields incorrectly set up: ${!requiredPropertiesOrFields ? "requiredPropertiesOrFields" : "data"} is missing.`);

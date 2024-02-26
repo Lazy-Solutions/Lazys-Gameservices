@@ -5,7 +5,6 @@ import { config } from '../shared/globals.js';
 import Authentication from '../services/authentication/authentication.js';
 import { CoreService } from '../core/core.js';
 import { playerMatcher } from './systems/playerMatcher.js';
-import { matchedPlayerQueue, playerQueue } from './store.js';
 import { matchfinder } from './systems/matchFinder.js';
 import { onConnection } from './endpoints/onConnection.js';
 import { onMessage } from './endpoints/onMessage.js';

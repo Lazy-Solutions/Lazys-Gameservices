@@ -1,5 +1,5 @@
 /*
-Takes an function to call, 
+Takes an function to call every tick, 
 
 Const AL = new AsyncLooper( async () => {
     do something,

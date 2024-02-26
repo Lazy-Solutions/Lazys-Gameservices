@@ -2,7 +2,6 @@ import { config, isDev } from '../../shared/globals.js';
 import { Matchmaking, matchingDefaults } from '../../core/core.js';
 import { playerQueue, matchedPlayerQueue, connections } from '../store.js';
 import { Match } from '../models/Match.js';
-import { json } from 'express';
 
 const { LOBBY_SIZE } = config;
 

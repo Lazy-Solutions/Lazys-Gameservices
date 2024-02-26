@@ -1,5 +1,3 @@
-const isDev = process.env.NODE_ENV === 'development';
-
 const { log, error, warn } = console;
 
 export class PlayerQueue
@@ -46,9 +44,6 @@ export class PlayerQueue
         }
 
         this.queue[queueKey].push(player);
-
-        if(isDev)
-            log(`Player id: ${ player.id }, joined the queue.`);
     }
 
     dequeue(playerId)
@@ -65,10 +60,8 @@ export class PlayerQueue
                     delete this.queue[queueKey];
                 }
 
-                if(isDev)
-                    log(`Player id: ${ playerId }, left the queue.`);
-
-                break;
+                break; // we break here as the user should not be queued to multiple gamemodes/keys. or should they?
+                // TODO: think about this.
             }
         }
     }

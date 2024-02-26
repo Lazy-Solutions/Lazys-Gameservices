@@ -1,3 +1,7 @@
+/**
+ * Base class for Player object, to be extended.
+ */
+
 export class Player
 {
     constructor(id)

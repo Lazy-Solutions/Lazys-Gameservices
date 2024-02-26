@@ -1,10 +1,14 @@
+
+/**
+ * A simple class that handles matches.
+ * 
+ */
+
 export class MatchManager {
-    constructor() {
-        this.matches = {};
-    }
+    #matches = {};
 
     addMatch(match) {
-        this.matches[match.id] = match;
+        this.#matches[match.id] = match;
     }
 
     addMatches(matches) {
@@ -14,7 +18,7 @@ export class MatchManager {
     }
 
     removeMatch(match) {
-        delete this.matches[match.id];
+        delete this.#matches[match.id];
     }
 
     removeMatches(matches) {
@@ -24,10 +28,10 @@ export class MatchManager {
     }
 
     findMatchById(match_id) {
-        return this.matches[match_id];
+        return this.#matches[match_id];
     }
 
     count() {
-        return Object.keys(this.matches).length;
+        return Object.keys(this.#matches).length;
     }
 }

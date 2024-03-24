@@ -1,7 +1,7 @@
 import { isDev, config } from './globals.js';
-import { Storage as baseStorage } from '../utils/storage/Storage.js';
-import { MOCKStorage } from '../utils/storage/MOCK.js';
-import { S3Storage } from '../utils/storage/S3.js';
+import { BaseStorage } from './utils/storage/baseStorage.js';
+import { MOCKStorage } from './utils/storage/MOCK.js';
+import { S3Storage } from './utils/storage/S3.js';
 
 
 export const Storage = {
@@ -13,12 +13,18 @@ export const Storage = {
             bucket: GAME
         };
 
-        this._storage = await baseStorage(isDev ? MOCKStorage : S3Storage, params);
+        // Initialize Storage
+        this._storage = await BaseStorage(isDev ? MOCKStorage : S3Storage, params);
     },
 
     async getServers(service)
     {
         return await this._storage.getData(`servers/${service}`);
+    },
+
+    async getAllServers()
+    {
+        return await this._storage.getData(`servers`);
     },
 
     async hasServers(service) {

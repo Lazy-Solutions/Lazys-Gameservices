@@ -5,7 +5,7 @@ import { WebSocketServer } from 'ws';
 
 export class CoreService
 {
-    constructor ({ key, cert, middleware, endpoints }, disableWebsocket = false)
+    constructor ({ key, cert, middleware, endpoints, disableWebsocket = false })
     {
         this.app = express();
 

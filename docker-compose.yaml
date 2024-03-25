@@ -1,43 +1,37 @@
 version: '3'
 services:
-  matchmaking:
+  Lobby Service:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - APP=Matchmaking
+        - SERVICE=LobbyService
     volumes:
       - game-data-volume:/app/data
     environment:
       NODE_ENV: production
-      EXT_IP: ${IP}
-      EXT_PORT: ${PORT}
     ports:
       - ${PORT}:8080
     entrypoint:
       - /sbin/tini
       - --
-    command: ["node", "matchmaking.js"]
+    command: ["node", "index.js"]
     
 
-  gameserver:
+  Game Service:
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - APP=Gameserver
+        - SERVICE=GameService
     volumes:
       - game-data-volume:/app/data
     environment:
       NODE_ENV: production
-      EXT_IP: ${IP}
-      EXT_PORT: ${PORT}
     ports:
       - "${PORT}:8080"
-    entrypoint:
-      - /sbin/tini
-      - --
-    command: ["node", "gameserver.js"]
+    entrypoint: ["/sbin/tini", "--"]
+    command: ["node", "index.js"]
 
 networks:
   network:

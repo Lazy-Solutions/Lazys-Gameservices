@@ -65,15 +65,30 @@ const Errorhandler = (err, req, res, next) =>
 
 };
 
+function admin(req, res, next)
+{
+    console.log("admin");
+    next();
+
+};
+function test(req, res, next)
+{
+    console.log("test");
+    next();
+
+};
+
+const endpointMiddlewares = [admin, test]
+
 // start core with websocket disabled
 const core = new CoreService({
     key: './shared/certificates/private.key',
     cert: './shared/certificates/certificate.crt',
     middleware: [cors(), compression(), verifyJwtToken(JWT_SECRET_KEY), Errorhandler], // TODO: add auth
     endpoints: [
-        { endpoint: "/logError", method: "post", callback: logErrorEndpoint },
-        { endpoint: "/getAllErrors", method: "get", callback: getAllErrorsEndpoint },
-        { endpoint: "/getRegisteredServices", method: "get", callback: getRegisteredServices },
+        { endpoint: "/logError", method: "post", logErrorEndpoint },
+        { endpoint: "/getAllErrors", method: "get", ...endpointMiddlewares, getAllErrorsEndpoint },
+        { endpoint: "/getRegisteredServices", method: "get", admin, getRegisteredServices },
     ],
     disableWebsocket: true,
 }); // ws disabled

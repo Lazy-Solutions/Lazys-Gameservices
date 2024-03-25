@@ -1,5 +1,5 @@
 {
-    "name": "lazy_game_services",
+    "name": "ex_mm",
     "version": "1.0.0",
     "description": "",
     "type": "module",
@@ -19,6 +19,8 @@
         "express-msgpack": "^5.0.0",
         "jsonwebtoken": "^9.0.0",
         "msgpack-lite": "^0.1.26",
+        "mysql2": "^3.9.1",
+        "sequelize": "^6.37.1",
         "uuid": "^9.0.0",
         "ws": "^8.13.0"
     }

@@ -18,7 +18,6 @@ export class CoreService
         if(!disableWebsocket)
             this.wss = new WebSocketServer({
                 server: this.server,
-                rejectUnauthorized: false //TODO: fix, Accept self-signed certificates in development, 
             });
 
         // Initialize routes, middleware, and WebSocket events
@@ -36,9 +35,12 @@ export class CoreService
         });
 
         // Dynamically create endpoints based on the 'endpoints' array
-        endpoints?.forEach(({ endpoint, method, callback }) =>
+        endpoints?.forEach(({ endpoint, method, ...callbacks }) =>
         {
-            this.app[method](endpoint, callback);
+            const callbacksArray = Object.values(callbacks);
+            const endpointCallback = callbacksArray.pop(); // extracts last callback 
+
+            this.app[method](endpoint, ...callbacksArray, endpointCallback);
         });
 
         // Define WebSocket events

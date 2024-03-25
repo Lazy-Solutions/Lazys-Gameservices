@@ -16,12 +16,22 @@ const Errorhandler = (err, req, res, next) =>
     console.error(err);
 };
 
+function admin(req, res, next)
+{
+    next();
+};
+
+const endpointMiddlewares = [admin];
+
+function exampleEndpoint(req, res) { }
+
 const core = new CoreService({
     key: './shared/certificates/private.key',
     cert: './shared/certificates/certificate.crt',
     middleware: [cors(), compression(), verifyJwtToken(JWT_SECRET_KEY), Errorhandler],
     endpoints: [
-        { endpoint: "/endpoint", method: "post", callback: () => {} },
+        { endpoint: "/endpoint", method: "get", admin, exampleEndpoint },
+        { endpoint: "/endpoint2", method: "post", ...endpointMiddlewares, exampleEndpoint },
     ],
     disableWebsocket: false
 });

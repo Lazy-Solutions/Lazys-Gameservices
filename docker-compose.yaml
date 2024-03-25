@@ -1,35 +1,64 @@
 version: '3'
 services:
-  Lobby Service:
+  gateway:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - SERVICE=LobbyService
     volumes:
       - game-data-volume:/app/data
     environment:
       NODE_ENV: production
+      SERVICE: GatewayService
     ports:
-      - ${PORT}:8080
+      - 3333:8080
     entrypoint:
       - /sbin/tini
       - --
     command: ["node", "index.js"]
-    
 
-  Game Service:
+  monitor:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        - SERVICE=GameService
     volumes:
       - game-data-volume:/app/data
     environment:
       NODE_ENV: production
+      SERVICE: MonitorService
     ports:
-      - "${PORT}:8080"
+      - 4444:8080
+    entrypoint:
+      - /sbin/tini
+      - --
+    command: ["node", "index.js"]
+
+  lobby:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: production
+      SERVICE: LobbyService
+    ports:
+      - 7777:8080
+    entrypoint:
+      - /sbin/tini
+      - --
+    command: ["node", "index.js"]
+
+  game:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - game-data-volume:/app/data
+    environment:
+      NODE_ENV: production
+      SERVICE: GameService
+    ports:
+      - "8888:8080"
     entrypoint: ["/sbin/tini", "--"]
     command: ["node", "index.js"]
 

@@ -9,7 +9,7 @@ export const isDev = process.env.NODE_ENV === 'development';
 
 export const config = {
     IP: getLocalIpAddress('eth0') || getLocalIpAddress('Ethernet'), // TODO: check aws,
-    PORT: process.env.PORT,
+    PORT: process.env.PORT || 8080,
     GAME: process.env.GAME,
     LOBBY_SIZE: 2,
     ADMIN_KEY: process.env.ADMIN_KEY, // admin access?

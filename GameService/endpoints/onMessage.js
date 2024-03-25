@@ -1,4 +1,4 @@
-import { eventHandlers } from "../systems/eventHandler";
+import { eventHandlers } from "../systems/eventHandler.js";
 import { errorBindings } from '../../shared/globals.js'
 
 export async function onMessage(message, session)

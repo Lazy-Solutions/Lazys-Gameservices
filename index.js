@@ -35,7 +35,6 @@ try
 catch(error)
 {
     console.error(error)
-    throw new Error(`Error importing module for SERVICE: ./${ SERVICE.charAt(0).toUpperCase() + SERVICE.slice(1) }/main.js`);
 }
 
 runOSDiagnostics((data) =>

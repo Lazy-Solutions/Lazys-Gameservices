@@ -2,6 +2,7 @@ import express from 'express';
 import https from 'https';
 import fs from 'fs';
 import { WebSocketServer } from 'ws';
+import { error } from 'console';
 
 export class CoreService
 {
@@ -67,6 +68,11 @@ export class CoreService
 
     start(port)
     {
+        if(!port)
+        {
+            throw new Error('Unable to start server, port not set.');
+        }
+
         this.server.listen(port, () =>
         {
             console.log(`Server started on port ${ port }`);

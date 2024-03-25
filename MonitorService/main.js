@@ -50,19 +50,9 @@ errorEmitter.on((error) =>
 // TODO: improve
 const Errorhandler = (err, req, res, next) =>
 {
-    switch(err.message)
-    {
-        case 'Unauthorized: Invalid Token':
-        case 'Unauthorized: Missing Token':
-            res.status(401).send(err.message);
-            break;
-        default:
-            errorEmitter.invoke(err);
-            // Handle other types of errors
-            res.status(500).send('Internal Server Error');
-            break;
-    }
-
+    errorEmitter.invoke(err);
+    // Handle other types of errors
+    res.status(500).send({ error: 'Internal Server Error' });
 };
 
 function admin(req, res, next)
@@ -78,7 +68,7 @@ function test(req, res, next)
 
 };
 
-const endpointMiddlewares = [admin, test]
+const endpointMiddlewares = [admin, test];
 
 // start core with websocket disabled
 const core = new CoreService({

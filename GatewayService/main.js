@@ -18,7 +18,7 @@ const core = new CoreService({
     cert: './shared/certificates/certificate.crt',
     middleware: [cors(), compression(), Errorhandler],
     endpoints: [
-        { endpoint: "/login", method: "post", callback: login },
+        { endpoint: "/login", method: "post", login },
     ],
     disableWebsocket: true
 });

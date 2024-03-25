@@ -9,7 +9,8 @@ let isSequelizeReady = false;
 async function initSequelize()
 {
     _sequelize = new Sequelize(DATABASE, DBUSER, DBPASSWORD, {
-        host: 'localhost',
+        host: 'localhost', //TODO: fix this for docker or standalone
+        port: 3306,
         dialect: 'mysql',
         logging: false
     });

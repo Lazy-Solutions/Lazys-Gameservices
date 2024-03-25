@@ -11,9 +11,7 @@ services:
       SERVICE: GatewayService
     ports:
       - 3333:8080
-    entrypoint:
-      - /sbin/tini
-      - --
+    entrypoint: ["/sbin/tini", "--"]
     command: ["node", "index.js"]
 
   monitor:
@@ -27,9 +25,7 @@ services:
       SERVICE: MonitorService
     ports:
       - 4444:8080
-    entrypoint:
-      - /sbin/tini
-      - --
+    entrypoint: ["/sbin/tini", "--"]
     command: ["node", "index.js"]
 
   lobby:
@@ -43,9 +39,7 @@ services:
       SERVICE: LobbyService
     ports:
       - 7777:8080
-    entrypoint:
-      - /sbin/tini
-      - --
+    entrypoint: ["/sbin/tini", "--"]
     command: ["node", "index.js"]
 
   game:
@@ -58,9 +52,22 @@ services:
       NODE_ENV: production
       SERVICE: GameService
     ports:
-      - "8888:8080"
+      - 8888:8080
     entrypoint: ["/sbin/tini", "--"]
     command: ["node", "index.js"]
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-server
+    environment:
+      MYSQL_ROOT_PASSWORD: ''
+      MYSQL_DATABASE: MonitorServiceDB
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ''
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data-volume:/var/lib/mysql
 
 networks:
   network:
@@ -71,3 +78,4 @@ networks:
 
 volumes:
   game-data-volume:
+  mysql-data-volume:

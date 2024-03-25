@@ -34,7 +34,7 @@ const core = new CoreService({
     cert: './shared/certificates/certificate.crt',
     middleware: [cors(), compression(), Errorhandler], // TODO: add auth
     endpoints: [
-        { endpoint: "/creatematches", method: "post", callback: createMatches }
+        { endpoint: "/creatematches", method: "post", createMatches }
     ],
 });
 

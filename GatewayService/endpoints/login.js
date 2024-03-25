@@ -10,11 +10,11 @@ if(!JWT_SECRET_KEY)
 
 export function login(req, res)
 {
-    const { userId } = req.body;
+    const { id } = req.body;
 
-    if(!userId)
+    if(!id)
     {
-        return res.status(400).json({ error: "userId is required" });
+        return res.status(400).json({ error: "'id' is required" });
     }
 
     try
@@ -23,7 +23,7 @@ export function login(req, res)
 
         // Generate a JWT token with the userId and JWT_SECRET_KEY
         // @ts-ignore, it will be set and checked early
-        const token = jwt.sign({ userId }, JWT_SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id }, JWT_SECRET_KEY, { expiresIn: '1h' });
 
         // Return the token in a JSON response
         return res.json({ token });

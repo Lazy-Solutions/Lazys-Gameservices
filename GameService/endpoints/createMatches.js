@@ -1,10 +1,10 @@
-import { config } from "../../shared/globals.js";
+import { keys } from "../../shared/globals.js";
 import { genMatchKey } from "../../shared/utils/utils.js";
 import { matches, matchCodes } from '../store.js';
 import { Match } from "../models/Match.js";
 import { GenerateUniqueCode } from "../../core/common.js";
 
-const { SECRET_KEY } = config;
+const { SECRET_KEY } = keys;
 
 //TODO: add limitations, so the event returns the amount of matches it can host.
 //and perhaps other things

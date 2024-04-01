@@ -7,14 +7,14 @@ export function extractBearerToken(req)
 
     if(!authorizationHeader)
     {
-        throw new JsonWebTokenError('Unauthorized: Authorization header missing');
+        return;
     }
 
     const [scheme, token] = authorizationHeader.split(' ');
 
     if(scheme !== 'Bearer' || !token)
     {
-        throw new JsonWebTokenError('Unauthorized: Invalid Bearer token');
+        return;
     }
 
     return token;

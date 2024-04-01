@@ -17,6 +17,7 @@
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
         "express-msgpack": "^5.0.0",
+        "google-auth-library": "^9.7.0",
         "jsonwebtoken": "^9.0.0",
         "msgpack-lite": "^0.1.26",
         "mysql2": "^3.9.1",

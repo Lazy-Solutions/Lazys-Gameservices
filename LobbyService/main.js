@@ -18,8 +18,10 @@ const Errorhandler = (err, req, res, next) =>
 };
 
 const core = new CoreService({
-    key: './shared/certificates/private.key',
-    cert: './shared/certificates/certificate.crt',
+    https: {
+        key: './shared/certificates/private.key',
+        cert: './shared/certificates/certificate.crt',
+    },
     middleware: [cors(), compression(), Errorhandler],
     endpoints: [],
 });

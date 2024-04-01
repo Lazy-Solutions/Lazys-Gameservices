@@ -1,20 +1,48 @@
 import express from 'express';
-import https from 'https';
+import * as _https from 'https';
+import http from 'http';
 import fs from 'fs';
 import { WebSocketServer } from 'ws';
-import { error } from 'console';
+
+/**
+ * @typedef {Object} Endpoints
+ * @property {string} endpoint
+ * @property {string} method
+ */
+/**
+ * @typedef {*} Callbacks
+ * @description Additional callbacks.
+ */
+
+/**
+ * 
+ */
 
 export class CoreService
 {
-    constructor ({ key, cert, middleware, endpoints, disableWebsocket = false })
+    /**
+     * 
+     * @param {Object} parameters
+     * @param {{key: string, cert: string}} [parameters.https] - enables https, add keys. 
+     * @param {Array} [parameters.middleware] - array of middlewares, see express middlewares, or my examples for usage.
+     * @param {Endpoints & Callbacks} [parameters.endpoints] - array of endpoints, for express.
+     * @param {boolean} [parameters.disableWebsocket=false] disable websocket?
+     */
+    constructor ({ https, middleware, endpoints, disableWebsocket = false })
     {
         this.app = express();
 
-        const privateKey = fs.readFileSync(key, 'utf8');
-        const certificate = fs.readFileSync(cert, 'utf8');
-        const credentials = { key: privateKey, cert: certificate };
+        if(https){
+            const privateKey = fs.readFileSync(https.key, 'utf8');
+            const certificate = fs.readFileSync(https.cert, 'utf8');
+            const credentials = { key: privateKey, cert: certificate };
 
-        this.server = https.createServer(credentials, this.app);
+            this.server = _https.createServer(credentials, this.app);
+        }
+
+        else {
+            this.server = http.createServer(this.app);
+        }
 
         if(!disableWebsocket)
             this.wss = new WebSocketServer({
@@ -36,7 +64,7 @@ export class CoreService
         });
 
         // Dynamically create endpoints based on the 'endpoints' array
-        endpoints?.forEach(({ endpoint, method, ...callbacks }) =>
+        endpoints?.forEach((/** @satisfies {Endpoints} */ { endpoint, method, ...callbacks }) =>
         {
             const callbacksArray = Object.values(callbacks);
             const endpointCallback = callbacksArray.pop(); // extracts last callback 

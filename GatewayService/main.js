@@ -2,10 +2,18 @@ import compression from 'compression';
 import cors from 'cors';
 
 import { config } from '../shared/globals.js';
+import { isDev } from '../shared/globals.js';
 import { CoreService } from '../core/core.js';
-import { login } from './endpoints/login.js';
+import { google } from './endpoints/auth/google.js';
 
-const { PORT,  } = config;
+const { SERVICE, HOSTNAME, IP, PORT } = config;
+
+// Register the service to a storage.
+import { Storage } from '../shared/storage.js';
+
+await Storage.init("GAMENAME");
+
+await Storage.addServer(SERVICE, HOSTNAME, { ip: IP, port: PORT });
 
 // TODO: improve
 const Errorhandler = (err, req, res, next) =>
@@ -13,12 +21,20 @@ const Errorhandler = (err, req, res, next) =>
     console.error(err);
 };
 
+const Default = (req, res, next) => { 
+    console.log(`Default route hit on user request: ${req.originalUrl}`);
+    res.status(404).send({error: `${req.originalUrl} endpoint not found`}) 
+}
+
 const core = new CoreService({
-    key: './shared/certificates/private.key',
-    cert: './shared/certificates/certificate.crt',
+    https: isDev ? undefined : {
+        key: './shared/certificates/private.key',
+        cert: './shared/certificates/certificate.crt',
+    },
     middleware: [cors(), compression(), Errorhandler],
     endpoints: [
-        { endpoint: "/login", method: "post", login },
+        { endpoint: "/auth/google", method: "post", google },
+        { endpoint: "*", method: "all", Default },
     ],
     disableWebsocket: true
 });

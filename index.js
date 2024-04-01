@@ -8,15 +8,11 @@ import dotenv from 'dotenv/config';
 
 import { config } from './shared/globals.js';
 import { runOSDiagnostics, stopOSDiagnostics } from "./shared/utils/osDiagnostics.js";
-import { Storage } from './shared/storage.js';
 
-await Storage.init();
-
-const { HOSTNAME, PORT, SERVICE, IP } = config;
+const { SERVICE } = config;
 
 console.log(config)
 
-await Storage.addServer(SERVICE, HOSTNAME, { ip: IP, port: PORT });
 
 if(!SERVICE)
 {
@@ -65,7 +61,5 @@ async function handleExit()
     await core?.handleExit();
 
     // remove us from S3
-    await Storage.removeServer(SERVICE, HOSTNAME);
-
     process.exit();
 }

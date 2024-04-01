@@ -1,7 +1,7 @@
 import compression from 'compression';
 import cors from 'cors';
 
-import { config } from '../shared/globals.js';
+import { config, keys } from '../shared/globals.js';
 import { CoreService } from "../core/core.js";
 import { extractStackTraceInfo } from '../shared/utils/utils.js';
 
@@ -16,7 +16,8 @@ import { getRegisteredServices } from './endpoints/getRegisteredServices.js';
 import { errorEmitter } from './store.js';
 import { verifyJwtToken } from '../shared/middleware/verifyJwtToken.js';
 
-const { PORT, SERVICE, JWT_SECRET_KEY } = config;
+const { PORT, SERVICE } = config;
+const { JWT_SECRET_KEY } = keys;
 
 
 // Sync the database with the models
@@ -55,30 +56,18 @@ const Errorhandler = (err, req, res, next) =>
     res.status(500).send({ error: 'Internal Server Error' });
 };
 
-function admin(req, res, next)
-{
-    console.log("admin");
-    next();
-
-};
-function test(req, res, next)
-{
-    console.log("test");
-    next();
-
-};
-
-const endpointMiddlewares = [admin, test];
 
 // start core with websocket disabled
 const core = new CoreService({
-    key: './shared/certificates/private.key',
-    cert: './shared/certificates/certificate.crt',
+    https: {
+        key: './shared/certificates/private.key',
+        cert: './shared/certificates/certificate.crt',
+    },
     middleware: [cors(), compression(), verifyJwtToken(JWT_SECRET_KEY), Errorhandler], // TODO: add auth
     endpoints: [
         { endpoint: "/logError", method: "post", logErrorEndpoint },
-        { endpoint: "/getAllErrors", method: "get", ...endpointMiddlewares, getAllErrorsEndpoint },
-        { endpoint: "/getRegisteredServices", method: "get", admin, getRegisteredServices },
+        { endpoint: "/getAllErrors", method: "get", getAllErrorsEndpoint },
+        { endpoint: "/getRegisteredServices", method: "get", getRegisteredServices },
     ],
     disableWebsocket: true,
 }); // ws disabled

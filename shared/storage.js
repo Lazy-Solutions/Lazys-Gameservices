@@ -5,12 +5,10 @@ import { S3Storage } from './utils/storage/S3.js';
 
 
 export const Storage = {
-    init: async function ()
+    init: async function (bucketname)
     {
-        const { GAME } = config;
-
         const params = {
-            bucket: GAME
+            bucket: bucketname
         };
 
         // Initialize Storage

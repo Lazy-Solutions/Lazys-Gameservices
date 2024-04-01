@@ -1,13 +1,14 @@
 import axios from "axios";
 import https from "https";
 
-import { config, isDev } from '../../shared/globals.js';
+import { config, isDev, keys } from '../../shared/globals.js';
 import { matchedPlayerQueue, cachedServers } from '../store.js';
 import { areInSameNetwork, genMatchKey } from "../../shared/utils/utils.js";
 import AsyncLooper from '../../core/utilities/AsyncLooper.js';
 
 
-const { ACCESS_KEY, SECRET_KEY, IP } = config;
+const { IP } = config;
+const { ACCESS_KEY, SECRET_KEY } = keys;
 
 const headers = {
     'Authorization': `Bearer ${ ACCESS_KEY }`, // Modify this line to match your API key format

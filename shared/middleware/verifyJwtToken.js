@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { extractBearerToken } from '../utils/extractBearerToken.js';
 
 export function verifyJwtToken(JWT_SECRET_KEY)
@@ -9,6 +9,11 @@ export function verifyJwtToken(JWT_SECRET_KEY)
         {
             const token = extractBearerToken(req);
 
+            if(!token)
+            {
+                throw new JsonWebTokenError("Invalid Bearer token");
+            }
+
             const decoded = jwt.verify(token, JWT_SECRET_KEY);
             req.user = decoded;
         }
@@ -17,8 +22,7 @@ export function verifyJwtToken(JWT_SECRET_KEY)
             switch(error.name)
             {
                 case 'JsonWebTokenError':
-                    return error.message === 'Unauthorized: Authorization header missing'
-                        || error.message === 'Unauthorized: Invalid Bearer token'
+                    return error.message === 'Unauthorized: Invalid Bearer token'
                         ? res.status(401).json({ error: error.message })
                         : res.status(401).send({ error: 'Unauthorized: Invalid token' });
                 case 'TokenExpiredError':

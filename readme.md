@@ -18,22 +18,28 @@ Simplicity is key. I enjoy the freedom of being able to run my code without the 
 
 The project consists of Core module and service examples to build from:
 
-1. Core module.
+1. Core module:
+   
    Where the important core logic lives, made to just be the minimum to start up a service. and utils that would fit all or most services.
 
 2. Gateway service:
+   
    A service for auth...
 
 3. Game service:
+   
    Where one will implement your gamelogic, it's made to be multiple instances, for example, one per zone or to handle too many players on one server.
 
 4. Lobby service:
+   
    Made to be one of per game, or one of per region. which can queue players to multiple game services.
 
 5. Monitor Service:
+    
    A hub to collect errors and other information from the servers.
 
 6. TEMPLATESERVICE:
+    
    A template service where most things are ready to be used.
 
 ## License

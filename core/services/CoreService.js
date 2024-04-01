@@ -69,6 +69,12 @@ export class CoreService
             const callbacksArray = Object.values(callbacks);
             const endpointCallback = callbacksArray.pop(); // extracts last callback 
 
+            // assume the user wants to use .use()
+            if(!method){
+                this.app.use(endpoint, ...callbacksArray, endpointCallback);
+                return;
+            }
+
             this.app[method](endpoint, ...callbacksArray, endpointCallback);
         });
 

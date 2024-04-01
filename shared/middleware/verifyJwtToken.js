@@ -1,5 +1,8 @@
-import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import pkg from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { extractBearerToken } from '../utils/extractBearerToken.js';
+
+const { JsonWebTokenError } = pkg;
 
 export function verifyJwtToken(JWT_SECRET_KEY)
 {

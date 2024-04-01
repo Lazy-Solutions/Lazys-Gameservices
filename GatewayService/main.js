@@ -4,7 +4,7 @@ import cors from 'cors';
 import { config } from '../shared/globals.js';
 import { isDev } from '../shared/globals.js';
 import { CoreService } from '../core/core.js';
-import { google } from './endpoints/auth/google.js';
+import googleRouter from './endpoints/auth/googleRouter.js';
 
 const { SERVICE, HOSTNAME, IP, PORT } = config;
 
@@ -33,7 +33,7 @@ const core = new CoreService({
     },
     middleware: [cors(), compression(), Errorhandler],
     endpoints: [
-        { endpoint: "/auth/google", method: "post", google },
+        { endpoint: "/auth/google", googleRouter },
         { endpoint: "*", method: "all", Default },
     ],
     disableWebsocket: true

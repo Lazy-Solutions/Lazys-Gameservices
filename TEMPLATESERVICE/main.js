@@ -8,6 +8,8 @@ import { onMessage } from './endpoints/onMessage.js';
 import { onClose } from './endpoints/onClose.js';
 import { verifyJwtToken } from '../shared/middleware/verifyJwtToken.js';
 
+import exampleRouter from './endpoints/exampleRouter.js';
+
 const { PORT, SERVICE, HOSTNAME, IP } = config;
 const { JWT_SECRET_KEY } = keys;
 
@@ -63,6 +65,7 @@ const core = new CoreService({
         Errorhandler
     ],
     endpoints: [
+        { endpoint: '/exampleRouter', exampleRouter},
         { endpoint: "/endpoint", method: "get", admin, exampleEndpoint },
         { endpoint: "/endpoint2", method: "post", ...endpointMiddlewares, exampleEndpoint },
         { endpoint: "*", method: "all", Default }, // Default route should be placed last, as routes are used in order.
